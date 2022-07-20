@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const dotenv = require('dotenv').config();
 
 const sauceRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
@@ -8,12 +9,12 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 
-mongoose.connect('mongodb+srv://Florent:omflo59@cluster0.uingm.mongodb.net/Cluster0?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://MONGODB_USERNAME:MONGODB_PASSWORD@MONGODB_CLUSTER_NAME.mongodb.net/MONGODB_DATABASE_NAME?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
-
+  console.log(process.env)
 app.use(express.json());
 
 app.use((req, res, next) => {
