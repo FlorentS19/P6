@@ -14,7 +14,6 @@ mongoose.connect('mongodb+srv://MONGODB_USERNAME:MONGODB_PASSWORD@MONGODB_CLUSTE
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
-  console.log(process.env)
 app.use(express.json());
 
 app.use((req, res, next) => {
