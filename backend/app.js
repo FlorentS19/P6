@@ -9,7 +9,7 @@ const userRoutes = require('./routes/user');
 const app = express();
 
 
-mongoose.connect('mongodb+srv://MONGODB_USERNAME:MONGODB_PASSWORD@MONGODB_CLUSTER_NAME.mongodb.net/MONGODB_DATABASE_NAME?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://'+ process.env.MONGODB_USERNAME+':'+ process.env.MONGODB_PASSWORD+'@'+ process.env.MONGODB_CLUSTER_NAME+'.mongodb.net/'+ process.env.MONGODB_DATABASE_NAME+'?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
