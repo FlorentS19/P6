@@ -1,4 +1,5 @@
 const Sauce = require('../models/sauce');
+const req_token = require('../middleware/auth');
 const fs = require('fs');
 
 exports.createSauce = (req, res, next) => {
@@ -12,13 +13,9 @@ exports.createSauce = (req, res, next) => {
     usersLiked: [],
     usersDisliked: [],
   });
-  if (sauce.userId === userId) {
-    sauce.save()
-      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-      .catch(error => res.status(400).json({ error }));
-    } else {
-        res.status(401).json({ error: "userId non valable" });
-    }
+  sauce.save()
+    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+    .catch(error => res.status(400).json({ error }));
 };
 
 exports.getOneSauce = (req, res, next) => {
@@ -59,7 +56,7 @@ exports.modifySauce = (req, res, next) => {
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
-      if (sauce.userId === userId) {
+      if (sauce.userId === req_token.userId) {
         const filename = sauce.imageUrl.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
           Sauce.deleteOne({ _id: req.params.id })
