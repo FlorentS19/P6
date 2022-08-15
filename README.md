@@ -1,7 +1,13 @@
-Démarrage Backend:
+1. Faire tourner le Frontend :
 
-- Lancer la console en ce situant sur le fichier Backend (cd backend) et taper : npm start.
+Ouvrir le terminal sur ce dossier et exécuter npm install pour installer les dépendances.
+Le projet a été généré avec Angular CLI version 7.0.2.
+Démarrer en tapant "npm start" pour avoir accès au serveur de développement.
+Rendez-vous sur http://localhost:4200.
 
-Démarrage Frontend:
 
-- Lancer la console en ce situant sur le fichier Frontend (cd frontend) et taper : npm start.
+2. Faire tourner le Backend :
+
+Ouvrir le terminal sur ce dossier.
+Pour utiliser le serveur, chargez le package nodemon : npm install -g nodemon.
+Puis lancez le serveur: nodemon server.

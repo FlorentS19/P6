@@ -9,7 +9,7 @@ exports.signup = (req, res, next) => {
         .then(hash => {
             const user = new User({
             email: req.body.email,
-            password: hash
+            password: hash,     
             });
             user.save()
             .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
@@ -35,7 +35,7 @@ exports.login = (req, res, next) => {
                 { userId: user._id },
                 process.env.SECRET_TOKEN_KEY,
                 { expiresIn: '24h' }
-              )
+              ),
             });
           })
           .catch(error => res.status(500).json({ error }));

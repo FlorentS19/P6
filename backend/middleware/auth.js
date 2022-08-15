@@ -4,12 +4,13 @@ const dotenv = require('dotenv').config();
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
-    const req_token = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
+    req.token = jwt.verify(token, process.env.SECRET_TOKEN_KEY);
     //const req.token.userId = decodedToken.userId;
     //req.auth = { userId };  
-    if (req.body.userId && req.body.userId !== req_token.userId) {
+    if (req.body.userId && req.body.userId !== req.token.userId) {
       throw 'Invalid user ID';
-    } else {
+    } 
+    else {
       next();
     }
   } catch {

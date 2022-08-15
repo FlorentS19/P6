@@ -13,9 +13,13 @@ exports.createSauce = (req, res, next) => {
     usersLiked: [],
     usersDisliked: [],
   });
-  sauce.save()
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-    .catch(error => res.status(400).json({ error }));
+  if (sauce.userId === req.token.userId) {
+    sauce.save()
+      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+      .catch(error => res.status(400).json({ error }));
+  } else {
+      res.status(401).json({ error: "userId non valable" });
+  }
 };
 
 exports.getOneSauce = (req, res, next) => {
@@ -56,7 +60,7 @@ exports.modifySauce = (req, res, next) => {
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then(sauce => {
-      if (sauce.userId === req_token.userId) {
+      if (sauce.userId === req.token.userId) {
         const filename = sauce.imageUrl.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
           Sauce.deleteOne({ _id: req.params.id })
